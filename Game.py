@@ -65,6 +65,8 @@ class Object(sprite.Sprite):
         bullets.add(bullet)    
 
 
+
+
 class Wall(sprite.Sprite):
     def __init__(self, color_1, color_2, color_3, wall_x, wall_y, wall_width, wall_height):
         super().__init__()
@@ -93,6 +95,47 @@ class Bullet(Object):
         if self.rect.x > 1000:
             self.kill()
 
+
+
+menu = display.set_mode((400,400))
+display.set_caption("")
+
+start_button=Rect(150,100,100,50)
+exit_button=Rect(150,200,100,50)
+
+font.init()
+menu_font=font.Font( None,18)
+
+
+mg = True
+while mg:
+    for e in event.get():
+        if e.type == QUIT:
+            mg = False
+            game = False
+        elif e.type == MOUSEBUTTONDOWN and e. button ==1:
+            if exit_button.collidepoint(mouse.get_pos()):
+                mg = False 
+                game = False
+            if start_button.collidepoint(mouse.get_pos()):
+                mg = False 
+                game = True
+ 
+    menu.fill ((236,2,120))
+    draw.rect(menu,(166,137,217),start_button)
+    draw.rect(menu,(166,137,217),exit_button)
+
+    start_text=menu_font.render("Почати гру", True, (0,0,0))
+    exit_text=menu_font.render("Завершити гру", True, (0,0,0))
+    menu.blit(start_text,(start_button.x+10, start_button.y+10))
+    menu.blit(exit_text,(exit_button.x+10, exit_button.y+10))
+
+    display.update()
+
+display.quit()
+display.init()
+
+
 window =display.set_mode((800,600))
 picture =transform.scale(image.load("images.jpg"),(800,600))
 
@@ -120,7 +163,7 @@ clock = time.Clock()
 
 x1,y1 = 100,100
 x2,y2 = 100,200
-game=True
+
 
 lvl1 = True
 lvl2 = False
